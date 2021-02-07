@@ -3,7 +3,7 @@ package loop
 import "testing"
 
 func TestLoop(t *testing.T) {
-	repeticoes := Loop("a")
+	repeticoes := Loop("a", 5)
 	esperado := "aaaaa"
 
 	if repeticoes != esperado {
@@ -13,6 +13,6 @@ func TestLoop(t *testing.T) {
 
 func BenchmarkLoop(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Loop("a")
+		Loop("a", 5)
 	}
 }
