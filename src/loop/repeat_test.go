@@ -10,3 +10,9 @@ func TestLoop(t *testing.T) {
 		t.Errorf("resultado '%s', esperado '%s'", repeticoes, esperado)
 	}
 }
+
+func BenchmarkLoop(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Loop("a")
+	}
+}
