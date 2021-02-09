@@ -3,7 +3,8 @@ package structs
 import "testing"
 
 func TestPerimetro(t *testing.T) {
-	result := Perimetro(10.0, 10.0)
+	retangle := Retangulo{10.0, 10.0}
+	result := Perimetro(retangle)
 	waited := 40.0
 
 	if result != waited {
@@ -12,7 +13,8 @@ func TestPerimetro(t *testing.T) {
 }
 
 func TestArea(t *testing.T) {
-	result := Area(12.0, 6.0)
+	retangle := Retangulo{12.0, 6.0}
+	result := Area(retangle)
 	waited := 72.0
 
 	if result != waited {
