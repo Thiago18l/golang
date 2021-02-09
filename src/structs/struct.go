@@ -7,11 +7,11 @@ type Retangulo struct {
 }
 
 // Perimetro will return a float number
-func Perimetro(x, y float64) float64 {
-	return 2 * (x + y)
+func Perimetro(r Retangulo) float64 {
+	return 2 * (r.Altura + r.Largura)
 }
 
 // Area will return a float number
-func Area(base, altura float64) float64 {
-	return base * altura
+func Area(r Retangulo) float64 {
+	return r.Largura * r.Altura
 }
