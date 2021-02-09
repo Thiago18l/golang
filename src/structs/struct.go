@@ -13,6 +13,11 @@ type Circle struct {
 	Raio float64
 }
 
+// Forma Interface
+type Forma interface {
+	Area() float64
+}
+
 // Perimetro will return a float64
 func Perimetro(r Retangulo) float64 {
 	return 2 * (r.Largura + r.Altura)
