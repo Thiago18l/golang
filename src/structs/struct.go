@@ -18,6 +18,12 @@ type Forma interface {
 	Area() float64
 }
 
+// Triangle struct
+type Triangle struct {
+	Base   float64
+	Altura float64
+}
+
 // Perimetro will return a float64
 func Perimetro(r Retangulo) float64 {
 	return 2 * (r.Largura + r.Altura)
@@ -31,4 +37,9 @@ func (r Retangulo) Area() float64 {
 // Area will return a float number
 func (c Circle) Area() float64 {
 	return math.Pi * (math.Pow(c.Raio, 2))
+}
+
+// Area will return a float number
+func (t Triangle) Area() float64 {
+	return (t.Base * t.Altura) * 0.5
 }
