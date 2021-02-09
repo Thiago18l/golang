@@ -38,17 +38,20 @@ func TestArea(t *testing.T) {
 
 func TestAreaTDT(t *testing.T) {
 	testesArea := []struct {
-		f      Forma
-		waited float64
+		name    string
+		f       Forma
+		temArea float64
 	}{
-		{Retangulo{12, 6}, 72.0},
-		{Circle{10}, 314.1592653589793},
-		{Triangle{12, 6}, 36.0},
+		{name: "Retângulo", f: Retangulo{Largura: 12, Altura: 6}, temArea: 72.0},
+		{name: "Circulo", f: Circle{Raio: 10}, temArea: 314.1592653589793},
+		{name: "Triangulo", f: Triangle{Base: 12, Altura: 6}, temArea: 36.0},
 	}
 	for _, tt := range testesArea {
-		result := tt.f.Area()
-		if result != tt.waited {
-			t.Errorf("result '%.2f', waited '%.2f'", result, tt.waited)
-		}
+		t.Run(tt.name, func(t *testing.T) {
+			result := tt.f.Area()
+			if result != tt.temArea {
+				t.Errorf("'%#v'  result '%.2f', waited '%.2f'", tt.f, result, tt.temArea)
+			}
+		})
 	}
 }
