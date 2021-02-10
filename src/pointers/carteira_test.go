@@ -11,6 +11,13 @@ func TestCarteira(t *testing.T) {
 		}
 	}
 
+	verifyError := func(t *testing.T, err error) {
+		t.Helper()
+		if err == nil {
+			t.Errorf("Esperava um erro")
+		}
+	}
+
 	t.Run("Deposit", func(t *testing.T) {
 		carteira := Carteira{}
 		carteira.Depositar(Bitcoin(10))
@@ -33,8 +40,33 @@ func TestCarteira(t *testing.T) {
 		erro := carteira.Retirar(Bitcoin(100))
 
 		verifyOutput(t, carteira, saldoInicial)
-		if erro == nil {
-			t.Errorf("Esperava um erro")
-		}
+		verifyError(t, erro)
 	})
+}
+
+func confirmError(t *testing.T, result error, waited error) {
+	t.Helper()
+	if result == nil {
+		t.Fatal("Esperava um erro, mas nenhum aconteceu")
+	}
+	if result != waited {
+		t.Errorf("error result '%s', error waited '%s'", result, waited)
+	}
+
+}
+
+func confirmaSaldo(t *testing.T, carteira Carteira, esperado Bitcoin) {
+	t.Helper()
+	resultado := carteira.Saldo()
+
+	if resultado != esperado {
+		t.Errorf("resultado %s, esperado %s", resultado, esperado)
+	}
+}
+
+func confirmaErroInexistente(t *testing.T, resultado error) {
+	t.Helper()
+	if resultado != nil {
+		t.Fatal("erro inesperado recebido")
+	}
 }
