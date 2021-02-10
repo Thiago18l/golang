@@ -5,6 +5,8 @@ import (
 	"fmt"
 )
 
+var errorFunds = errors.New("não é possível retirar: saldo insuficiente")
+
 // Stringer interface
 type Stringer interface {
 	String() string
@@ -35,7 +37,7 @@ func (c *Carteira) Depositar(money Bitcoin) {
 // Retirar method
 func (c *Carteira) Retirar(money Bitcoin) error {
 	if money > c.Saldo() {
-		return errors.New("Saldo insuficiente")
+		return errorFunds
 	}
 	c.money -= money
 	return nil
