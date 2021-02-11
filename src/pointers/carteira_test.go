@@ -42,6 +42,14 @@ func TestCarteira(t *testing.T) {
 		verifyOutput(t, carteira, saldoInicial)
 		verifyError(t, erro)
 	})
+
+	t.Run("withdraw with suficient funds", func(t *testing.T) {
+		carteira := Carteira{Bitcoin(20)}
+		erro := carteira.Retirar(Bitcoin(10))
+
+		confirmaSaldo(t, carteira, Bitcoin(10))
+		confirmaErroInexistente(t, erro)
+	})
 }
 
 func confirmError(t *testing.T, result error, waited error) {
