@@ -11,8 +11,8 @@ func TestBusca(t *testing.T) {
 		}
 	}
 
-	dictionary := map[string]string{"teste": "isso é apenas um teste"}
-	result := Busca(dictionary, "teste")
+	dictionary := Dictionary{"teste": "isso é apenas um teste"}
+	result := dictionary.Busca("teste")
 	waited := "isso é apenas um teste"
 
 	verifyOutput(t, result, waited, "teste")
