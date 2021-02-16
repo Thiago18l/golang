@@ -33,15 +33,26 @@ func compareError(t *testing.T, result, waited error) {
 }
 
 func TestAdiciona(t *testing.T) {
-	dictionary := Dictionary{}
 
-	dictionary.Adiciona("teste", "isso é apenas um teste")
-	waited := "isso é apenas um teste"
+	compareDefinition := func(t *testing.T, d Dictionary, word, definition string) {
+		result, err := d.Busca(word)
+		t.Helper()
 
-	result, err := dictionary.Busca("teste")
-	if err != nil {
-		t.Fatal("Não foi possível encontrar a palavra adicionada", err)
+		if err != nil {
+			t.Fatal("Não foi possível encontrar a palavra adicionada", err)
+		}
+		verifyResult(t, definition, result)
 	}
+	dictionary := Dictionary{}
+	word := "teste"
+	definition := "isso é apenas um teste"
+
+	dictionary.Adiciona(word, definition)
+	compareDefinition(t, dictionary, word, definition)
+}
+
+func verifyResult(t *testing.T, waited, result string) {
+	t.Helper()
 	if waited != result {
 		t.Errorf("result '%s', waited '%s'", result, waited)
 	}
