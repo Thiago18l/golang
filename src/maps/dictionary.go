@@ -17,6 +17,11 @@ func (d Dictionary) Busca(word string) (string, error) {
 	return definicao, nil
 }
 
+// Adiciona will add a new word to the map
+func (d Dictionary) Adiciona(word, definition string) {
+	d[word] = definition
+}
+
 func main() {
 	dict := Dictionary{"teste": "isso aqui é um teste"}
 	dict.Busca("teste")
