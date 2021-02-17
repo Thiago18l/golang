@@ -34,15 +34,6 @@ func compareError(t *testing.T, result, waited error) {
 
 func TestAdiciona(t *testing.T) {
 
-	compareDefinition := func(t *testing.T, d Dictionary, word, definition string) {
-		result, err := d.Busca(word)
-		t.Helper()
-
-		if err != nil {
-			t.Fatal("Não foi possível encontrar a palavra adicionada", err)
-		}
-		verifyResult(t, definition, result)
-	}
 	t.Run("new word", func(t *testing.T) {
 		dictionary := Dictionary{}
 		word := "teste"
@@ -63,9 +54,29 @@ func TestAdiciona(t *testing.T) {
 	})
 }
 
+func TestUpdate(t *testing.T) {
+	word := "teste"
+	definition := "isso é apenas um teste"
+	dictionary := Dictionary{word: definition}
+	newDefinition := "nova definição"
+
+	dictionary.Atualiza(word, newDefinition)
+	compareDefinition(t, dictionary, word, newDefinition)
+}
+
 func verifyResult(t *testing.T, waited, result string) {
 	t.Helper()
 	if waited != result {
 		t.Errorf("result '%s', waited '%s'", result, waited)
 	}
+}
+
+func compareDefinition(t *testing.T, d Dictionary, word, definition string) {
+	result, err := d.Busca(word)
+	t.Helper()
+
+	if err != nil {
+		t.Fatal("Não foi possível encontrar a palavra adicionada", err)
+	}
+	verifyResult(t, definition, result)
 }
