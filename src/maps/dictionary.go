@@ -8,8 +8,15 @@ var (
 	ErrExistingWord = errors.New("não é possível adicionar a palavra pois ela já existe")
 )
 
+// ErrDictionary type
+type ErrDictionary string
+
 // Dictionary type
 type Dictionary map[string]string
+
+func (e ErrDictionary) Error() string {
+	return string(e)
+}
 
 // Busca will return a string
 func (d Dictionary) Busca(word string) (string, error) {
@@ -32,6 +39,11 @@ func (d Dictionary) Adiciona(word, definition string) error {
 		return err
 	}
 	return nil
+}
+
+// Atualiza will update a word in map
+func (d Dictionary) Atualiza(word, definition string) {
+	d[word] = definition
 }
 
 func main() {
