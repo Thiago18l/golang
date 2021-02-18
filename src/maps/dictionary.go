@@ -4,8 +4,9 @@ import "errors"
 
 // ErrNotFound details
 var (
-	ErrNotFound     = errors.New("não foi possível encontrar a palavra que você procura")
-	ErrExistingWord = errors.New("não é possível adicionar a palavra pois ela já existe")
+	ErrNotFound       = errors.New("não foi possível encontrar a palavra que você procura")
+	ErrExistingWord   = errors.New("não é possível adicionar a palavra pois ela já existe")
+	ErrInexistingWord = errors.New("não foi possível atualizar a palavra pois ela não existe")
 )
 
 // ErrDictionary type
@@ -42,8 +43,18 @@ func (d Dictionary) Adiciona(word, definition string) error {
 }
 
 // Atualiza will update a word in map
-func (d Dictionary) Atualiza(word, definition string) {
-	d[word] = definition
+func (d Dictionary) Atualiza(word, definition string) error {
+	_, err := d.Busca(word)
+	switch err {
+	case ErrNotFound:
+		return ErrInexistingWord
+	case nil:
+		d[word] = definition
+	default:
+		return err
+	}
+
+	return nil
 }
 
 func main() {
