@@ -75,6 +75,17 @@ func TestUpdate(t *testing.T) {
 	})
 }
 
+func TestDelete(t *testing.T) {
+	word := "teste"
+	dictionary := Dictionary{word: "definição da palavra"}
+	dictionary.Delete(word)
+
+	_, err := dictionary.Busca(word)
+	if err != ErrNotFound {
+		t.Errorf("espera-se que '%s' seja deletado", word)
+	}
+}
+
 func verifyResult(t *testing.T, waited, result string) {
 	t.Helper()
 	if waited != result {
