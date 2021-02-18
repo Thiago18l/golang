@@ -57,6 +57,10 @@ func (d Dictionary) Atualiza(word, definition string) error {
 	return nil
 }
 
+// Delete is a func to delete the word inside the map
+func (d Dictionary) Delete(word string) {
+	delete(d, word)
+}
 func main() {
 	dict := Dictionary{"teste": "isso aqui é um teste"}
 	dict.Busca("teste")
