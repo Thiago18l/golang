@@ -55,13 +55,24 @@ func TestAdiciona(t *testing.T) {
 }
 
 func TestUpdate(t *testing.T) {
-	word := "teste"
-	definition := "isso é apenas um teste"
-	dictionary := Dictionary{word: definition}
-	newDefinition := "nova definição"
 
-	dictionary.Atualiza(word, newDefinition)
-	compareDefinition(t, dictionary, word, newDefinition)
+	t.Run("existing word", func(t *testing.T) {
+		word := "teste"
+		definition := "isso é apenas um teste"
+		dictionary := Dictionary{word: definition}
+		newDefinition := "nova definição"
+
+		dictionary.Atualiza(word, newDefinition)
+		compareDefinition(t, dictionary, word, newDefinition)
+	})
+	t.Run("new word", func(t *testing.T) {
+		word := "teste"
+		definition := "isso é apenas um teste"
+		dictionary := Dictionary{}
+
+		err := dictionary.Atualiza(word, definition)
+		compareError(t, err, ErrInexistingWord)
+	})
 }
 
 func verifyResult(t *testing.T, waited, result string) {
