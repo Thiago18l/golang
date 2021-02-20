@@ -15,22 +15,20 @@ type Sleeper interface {
 	Sleep()
 }
 
+// SleeperConfigurable it's a implemention of time.Sleep
+type SleeperConfigurable struct {
+	duration time.Duration
+	pause    func(time.Duration)
+}
+
 // SleeperSpy see the number of 'Chamadas'
 type SleeperSpy struct {
 	Chamadas int
 }
 
-// SleeperDefault do nothing at this time
-type SleeperDefault struct{}
-
-// Sleep will add a count to 'Chamadas'
-func (s *SleeperSpy) Sleep() {
-	s.Chamadas++
-}
-
 // Sleep will count the time in seconds
-func (d *SleeperDefault) Sleep() {
-	time.Sleep(1 * time.Second)
+func (s *SleeperConfigurable) Sleep() {
+	s.pause(s.duration)
 }
 
 // Contagem will print a output in screen
@@ -44,6 +42,6 @@ func Contagem(exit io.Writer, sleeper Sleeper) {
 }
 
 func main() {
-	sleeper := &SleeperDefault{}
+	sleeper := &SleeperConfigurable{1 * time.Second, time.Sleep}
 	Contagem(os.Stdout, sleeper)
 }
