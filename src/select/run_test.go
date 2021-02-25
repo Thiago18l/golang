@@ -11,6 +11,9 @@ func TestRunner(t *testing.T) {
 	serverSlow := createServerWithDelay(20 * time.Millisecond)
 	serverFast := createServerWithDelay(0 * time.Millisecond)
 
+	defer serverSlow.Close()
+	defer serverFast.Close()
+
 	URLSlow := serverSlow.URL
 	URLFast := serverFast.URL
 
