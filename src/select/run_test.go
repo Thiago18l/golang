@@ -8,14 +8,8 @@ import (
 )
 
 func TestRunner(t *testing.T) {
-	serverSlow := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		time.Sleep(20 * time.Millisecond)
-		w.WriteHeader(http.StatusOK)
-	}))
-
-	serverFast := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-	}))
+	serverSlow := createServerWithDelay(20 * time.Millisecond)
+	serverFast := createServerWithDelay(0 * time.Millisecond)
 
 	URLSlow := serverSlow.URL
 	URLFast := serverFast.URL
@@ -26,4 +20,11 @@ func TestRunner(t *testing.T) {
 	if result != waited {
 		t.Errorf("result '%s', waited '%s'", result, waited)
 	}
+}
+
+func createServerWithDelay(delay time.Duration) *httptest.Server {
+	return httptest.NewServer(http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
+		time.Sleep(delay)
+		rw.WriteHeader(http.StatusOK)
+	}))
 }
