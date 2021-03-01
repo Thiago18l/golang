@@ -1,18 +1,35 @@
 package main
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 func TestPercorre(t *testing.T) {
-	waited := "Thiago"
-	var result []string
-	x := struct {
-		Name string
-	}{waited}
-
-	percorre(x, func(entrada string) {
-		result = append(result, entrada)
-	})
-	if result[0] != waited {
-		t.Errorf("número incorreto de chamadas de função: result '%s', waited '%s'", result[0], waited)
+	cases := []struct {
+		Name        string
+		Input       interface{}
+		waitedCalls []string
+	}{
+		{
+			"Struct with value string",
+			struct {
+				Name string
+			}{"Thiago"},
+			[]string{"Thiago"},
+		},
 	}
+
+	for _, test := range cases {
+		t.Run(test.Name, func(t *testing.T) {
+			var result []string
+			percorre(test.Input, func(entrada string) {
+				result = append(result, entrada)
+			})
+			if !reflect.DeepEqual(result, test.waitedCalls) {
+				t.Errorf("result '%s', waited '%s'", result, test.waitedCalls)
+			}
+		})
+	}
+
 }
