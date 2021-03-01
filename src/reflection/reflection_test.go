@@ -18,6 +18,22 @@ func TestPercorre(t *testing.T) {
 			}{"Thiago"},
 			[]string{"Thiago"},
 		},
+		{
+			"Struct with two string values",
+			struct {
+				Name string
+				City string
+			}{"Thiago", "London"},
+			[]string{"Thiago", "London"},
+		},
+		{
+			"Struct without string value",
+			struct {
+				Name string
+				Age  int
+			}{"Thiago", 23},
+			[]string{"Thiago"},
+		},
 	}
 
 	for _, test := range cases {
