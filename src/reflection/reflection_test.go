@@ -5,6 +5,16 @@ import (
 	"testing"
 )
 
+type Person struct {
+	Name   string
+	Perfil Perfil
+}
+
+type Perfil struct {
+	Age  int
+	City string
+}
+
 func TestPercorre(t *testing.T) {
 	cases := []struct {
 		Name        string
@@ -33,6 +43,14 @@ func TestPercorre(t *testing.T) {
 				Age  int
 			}{"Thiago", 23},
 			[]string{"Thiago"},
+		},
+		{
+			"Struct with other nested struct inside",
+			Person{
+				"Thiago",
+				Perfil{33, "London"},
+			},
+			[]string{"Thiago", "London"},
 		},
 	}
 
