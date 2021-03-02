@@ -7,8 +7,11 @@ func percorre(x interface{}, fn func(entrada string)) {
 
 	for i := 0; i < value.NumField(); i++ {
 		camp := value.Field(i)
-		if camp.Kind() == reflect.String {
+		switch camp.Kind() {
+		case reflect.String:
 			fn(camp.String())
+		case reflect.Struct:
+			percorre(camp.Interface(), fn)
 		}
 	}
 }
