@@ -76,14 +76,6 @@ func TestPercorre(t *testing.T) {
 			},
 			[]string{"London", "Bangladesh"},
 		},
-		{
-			"Maps",
-			map[string]string{
-				"value":   "London",
-				"value_2": "Bangladesh",
-			},
-			[]string{"London", "Bangladesh"},
-		},
 	}
 
 	for _, test := range cases {
@@ -97,5 +89,28 @@ func TestPercorre(t *testing.T) {
 			}
 		})
 	}
+	t.Run("with Maps", func(t *testing.T) {
+		mapA := map[string]string{
+			"key":   "London",
+			"key_2": "Bangladesh",
+		}
+		var result []string
+		percorre(mapA, func(entrada string) {
+			result = append(result, entrada)
+		})
+		verifyIfIncludes(t, result, "London")
+		verifyIfIncludes(t, result, "Bangladesh")
+	})
+}
 
+func verifyIfIncludes(t *testing.T, grass []string, nail string) {
+	include := false
+	for _, x := range grass {
+		if x == nail {
+			include = true
+		}
+	}
+	if !include {
+		t.Errorf("was waiting '%+v' includes '%s', but don't", grass, nail)
+	}
 }
