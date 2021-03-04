@@ -76,6 +76,14 @@ func TestPercorre(t *testing.T) {
 			},
 			[]string{"London", "Bangladesh"},
 		},
+		{
+			"Maps",
+			map[string]string{
+				"value":   "London",
+				"value_2": "Bangladesh",
+			},
+			[]string{"London", "Bangladesh"},
+		},
 	}
 
 	for _, test := range cases {
