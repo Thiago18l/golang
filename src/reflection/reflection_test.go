@@ -68,6 +68,14 @@ func TestPercorre(t *testing.T) {
 			},
 			[]string{"London", "Bangladesh"},
 		},
+		{
+			"Arrays",
+			[2]Perfil{
+				{33, "London"},
+				{23, "Bangladesh"},
+			},
+			[]string{"London", "Bangladesh"},
+		},
 	}
 
 	for _, test := range cases {
