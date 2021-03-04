@@ -12,7 +12,7 @@ func percorre(x interface{}, fn func(entrada string)) {
 	case reflect.Struct:
 		countOfValues = value.NumField()
 		getCamp = value.Field
-	case reflect.Slice:
+	case reflect.Slice, reflect.Array:
 		countOfValues = value.Len()
 		getCamp = value.Index
 	case reflect.String:
