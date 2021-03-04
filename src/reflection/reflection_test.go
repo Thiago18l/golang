@@ -52,6 +52,22 @@ func TestPercorre(t *testing.T) {
 			},
 			[]string{"Thiago", "London"},
 		},
+		{
+			"Pointers for things",
+			&Person{
+				"Thiago",
+				Perfil{23, "London"},
+			},
+			[]string{"Thiago", "London"},
+		},
+		{
+			"Slices",
+			[]Perfil{
+				{33, "London"},
+				{23, "Bangladesh"},
+			},
+			[]string{"London", "Bangladesh"},
+		},
 	}
 
 	for _, test := range cases {
