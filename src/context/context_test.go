@@ -26,7 +26,6 @@ func TestHandler(t *testing.T) {
 		if response.Body.String() != data {
 			t.Errorf(`result %s, waited "%s`, response.Body.String(), data)
 		}
-		store.assertWasNotCancelled()
 	})
 
 	t.Run("warning the store to cancel the work if the requisition fail", func(t *testing.T) {
@@ -38,10 +37,8 @@ func TestHandler(t *testing.T) {
 		cancellingCtx, cancel := context.WithCancel(request.Context())
 		time.AfterFunc(5*time.Millisecond, cancel)
 		request = request.WithContext(cancellingCtx)
-		response := httptest.NewRecorder()
+		response := &SpyResponseWriter{}
 
 		srv.ServeHTTP(response, request)
-
-		store.assertWasCancelled()
 	})
 }
