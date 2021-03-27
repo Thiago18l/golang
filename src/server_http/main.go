@@ -13,6 +13,8 @@ func (p *PlayerStorageInMemory) GetPlayerPoints(name string) int {
 	return 123
 }
 
+func (p *PlayerStorageInMemory) RegisterOwn(name string) {}
+
 func main() {
 	server := &PlayerServer{&PlayerStorageInMemory{}}
 	treater := http.HandlerFunc(server.ServerHTTP)
