@@ -34,7 +34,7 @@ func TestGetPlayers(t *testing.T) {
 
 		received := response.Body.String()
 		waited := "20"
-
+		verifyStatusCode(t, response.Code, http.StatusOK)
 		verifyBodyRequest(t, received, waited)
 	})
 
@@ -46,8 +46,20 @@ func TestGetPlayers(t *testing.T) {
 
 		received := response.Body.String()
 		waited := "10"
-
+		verifyStatusCode(t, response.Code, http.StatusOK)
 		verifyBodyRequest(t, received, waited)
+	})
+
+	t.Run("should return 404 if the player is not found", func(t *testing.T) {
+		request := newRequisitionPoints("John")
+		response := httptest.NewRecorder()
+
+		server.ServerHTTP(response, request)
+
+		received := response.Code
+		waited := http.StatusNotFound
+
+		verifyStatusCode(t, received, waited)
 	})
 }
 
@@ -60,5 +72,12 @@ func verifyBodyRequest(t *testing.T, received, waited string) {
 	t.Helper()
 	if received != waited {
 		t.Errorf(`received '%s', but expect '%s'`, received, waited)
+	}
+}
+
+func verifyStatusCode(t *testing.T, received, waited int) {
+	t.Helper()
+	if received != waited {
+		t.Errorf("received %d, waited %d", received, waited)
 	}
 }
