@@ -16,6 +16,7 @@ func main() {
 		fmt.Println()
 	}
 	way()
+	diff()
 }
 
 // the new function
@@ -25,4 +26,10 @@ func way() {
 	fmt.Println(*p)
 	*p = 2
 	fmt.Println(*p)
+}
+
+func diff() {
+	p := new(int)
+	q := new(int)
+	fmt.Println(p == q) // false
 }
