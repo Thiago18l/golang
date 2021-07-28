@@ -15,4 +15,14 @@ func main() {
 	if !*n {
 		fmt.Println()
 	}
+	way()
+}
+
+// the new function
+
+func way() {
+	p := new(int)
+	fmt.Println(*p)
+	*p = 2
+	fmt.Println(*p)
 }
