@@ -17,6 +17,8 @@ func main() {
 	}
 	way()
 	diff()
+	result := gcd(10, 2)
+	fmt.Println(result)
 }
 
 // the new function
@@ -32,4 +34,11 @@ func diff() {
 	p := new(int)
 	q := new(int)
 	fmt.Println(p == q) // false
+}
+
+func gcd(x, y int) int {
+	for y != 0 {
+		x, y = y, x%y
+	}
+	return x
 }
