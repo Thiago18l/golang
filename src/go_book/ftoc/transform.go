@@ -14,23 +14,25 @@ const (
 
 func main() {
 	const freezingF, boilingF = 32.0, 212.0
-	fmt.Printf("%g°F = %g°C\n", freezingF, fToC(freezingF))
-	fmt.Printf("%g°F = %g°C\n", boilingF, fToC(boilingF))
+	fmt.Printf("%g°F = %g°C\n", freezingF, FToC(freezingF))
+	fmt.Printf("%g°F = %g°C\n", boilingF, FToC(boilingF))
 
 	// Celsius to Fahrenheit
 	fahrenheit := CtoF(-40)
 	fmt.Printf("%g°F\n", fahrenheit)
 
 	// fahrenheit to celsius
-	celsius := fToC(32)
+	celsius := FToC(32)
 	fmt.Printf("%g°C\n", celsius)
 
 }
 
-func fToC(f Fahrenheit) Celsius {
+// fToC convert fahrenheit to celsius
+func FToC(f Fahrenheit) Celsius {
 	return Celsius((f - 32) * 5 / 9)
 }
 
+// CtoF convert celsius to fahrenheit
 func CtoF(c Celsius) Fahrenheit {
 	return Fahrenheit(c*9/5 + 32)
 }
