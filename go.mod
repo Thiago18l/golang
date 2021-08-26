@@ -1,3 +1,3 @@
-module src/maps
+module github.com/thiago18l/golang
 
-go 1.15
+go 1.16
